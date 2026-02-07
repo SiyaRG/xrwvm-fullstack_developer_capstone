@@ -9,7 +9,7 @@ backend_url = os.getenv(
     'backend_url', default="http://localhost:3030")
 
 # Use external Code Engine URL for Node.js API
-backend_url = "https://dealer-api.262x3c44ws6b.us-south.codeengine.appdomain.cloud"
+backend_url = "https://dealer-api.262x3c44ws6b.us-south.codeengine.appdomain.cloud/"
 
 
 sentiment_analyzer_url = os.getenv(
