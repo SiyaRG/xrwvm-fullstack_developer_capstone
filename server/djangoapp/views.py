@@ -1,21 +1,16 @@
 # Uncomment the required imports before adding the code
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
-from django.contrib import messages
-from datetime import datetime
-
-from django.http import JsonResponse
-from django.contrib.auth import login, authenticate
 import logging
 import json
+from django.http import JsonResponse
+from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, post_review
 
 
 # Get an instance of a logger
@@ -43,9 +38,10 @@ def login_user(request):
 # Create a `logout_request` view to handle sign out request
 @csrf_exempt
 def logout_request(request):
-    logout(request) # Terminate user session
-    data = {"userName":""} # Return empty username
+    logout(request)  # Terminate user session
+    data = {"userName": ""}  # Return empty username
     return JsonResponse(data)
+
 
 # Create a `registration` view to handle sign up request
 @csrf_exempt
@@ -56,11 +52,11 @@ def registration(request):
     first_name = data['firstName']
     last_name = data['lastName']
     email = data['email']
-    
+
     # Check if username already exists
     if User.objects.filter(username=username).exists():
         return JsonResponse({"error": "Already Registered"})
-    
+
     # Create new user
     user = User.objects.create_user(
         username=username,
@@ -69,7 +65,7 @@ def registration(request):
         last_name=last_name,
         email=email
     )
-    
+
     # Login the new user
     login(request, user)
     
@@ -107,15 +103,22 @@ def get_cars(request):
 # Create a `add_review` view to handle review POST requests
 @csrf_exempt
 def add_review(request):
-    if(request.user.is_anonymous == False):
+    if request.user.is_anonymous is False:
         data = json.loads(request.body)
         try:
-            response = post_review(data)
-            return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
+            post_review(data)
+            return JsonResponse({"status": 200})
+        except Exception:
+            return JsonResponse({
+                "status": 401,
+                "message": "Error in posting review"
+            })
     else:
-        return JsonResponse({"status":403,"message":"Unauthorized"})
+        return JsonResponse({
+            "status": 403,
+            "message": "Unauthorized"
+        })
+
 
 # Create a `get_dealers` view to handle dealer requests
 def get_dealers(request, state=""):
@@ -125,26 +128,36 @@ def get_dealers(request, state=""):
     else:
         # Get all dealers
         dealers = get_request("fetchDealers")
-    
+
     if dealers:
         return JsonResponse({"status": 200, "dealers": dealers})
     else:
-        return JsonResponse({"status": 500, "message": "Error fetching dealers"})
+        return JsonResponse({
+            "status": 500,
+            "message": "Error fetching dealers"
+        })
 
 # Create a `get_dealer` view to handle individual dealer requests
 def get_dealer(request, dealer_id):
     dealer = get_request("fetchDealer/" + str(dealer_id))
-    
+
     if dealer:
         return JsonResponse({"status": 200, "dealer": [dealer]})
     else:
-        return JsonResponse({"status": 500, "message": "Error fetching dealer"})
+        return JsonResponse({
+            "status": 500,
+            "message": "Error fetching dealer"
+        })
+
 
 # Create a `get_dealer_reviews` view to handle dealer review requests
 def get_dealer_reviews(request, dealer_id):
     reviews = get_request("fetchReviews/dealer/" + str(dealer_id))
-    
+
     if reviews is not None:
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
-        return JsonResponse({"status": 500, "message": "Error fetching reviews"})
+        return JsonResponse({
+            "status": 500,
+            "message": "Error fetching reviews"
+        })
