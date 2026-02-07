@@ -1,0 +1,6 @@
+Command: curl -X POST http://localhost:8000/djangoapp/register -H "Content-Type: application/json" -d '{"userName": "testuser", "password": "testpass", "firstName": "Test", "lastName": "User", "email": "test@example.com"}'
+
+Output:
+userName     status
+--------     ----------
+testuser     Authenticated
