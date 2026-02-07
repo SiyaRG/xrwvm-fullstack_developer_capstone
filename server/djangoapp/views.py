@@ -68,7 +68,7 @@ def registration(request):
 
     # Login the new user
     login(request, user)
-    
+
     return JsonResponse({"userName": username, "status": "Authenticated"})
 
 # # Update the `get_dealerships` view to render the index page with
@@ -87,6 +87,7 @@ def registration(request):
 # Create a `add_review` view to submit a review
 # def add_review(request):
 # ...
+
 
 # Create a `get_cars` view to retrieve car data
 def get_cars(request):
@@ -140,6 +141,7 @@ def get_dealers(request, state=""):
             "status": 500,
             "message": "Error fetching dealers"
         })
+
 
 # Create a `get_dealer` view to handle individual dealer requests
 def get_dealer(request, dealer_id):
