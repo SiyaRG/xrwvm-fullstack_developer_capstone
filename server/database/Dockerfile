@@ -11,6 +11,10 @@ ADD data/dealerships.json .
 ADD data/reviews.json .
 ADD data/car_records.json .
 COPY . .
+
+# Clean npm cache and reinstall to fix module corruption
+RUN npm cache clean --force
+RUN rm -rf node_modules
 RUN npm install
 
 EXPOSE 3030
