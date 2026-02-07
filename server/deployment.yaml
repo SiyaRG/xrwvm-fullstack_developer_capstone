@@ -27,6 +27,12 @@ spec:
         ports:
         - containerPort: 8000
           protocol: TCP
+      - image: us.icr.io/sn-labs-siyabongafik/dealer-api:latest
+        imagePullPolicy: Always
+        name: dealer-api
+        ports:
+        - containerPort: 3030
+          protocol: TCP
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -41,6 +47,22 @@ spec:
   - port: 8000
     protocol: TCP
     targetPort: 8000
+  selector:
+    run: dealership
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: dealership
+  name: dealer-api
+  namespace: sn-labs-siyabongafik
+spec:
+  ports:
+  - port: 3030
+    protocol: TCP
+    targetPort: 3030
   selector:
     run: dealership
   type: ClusterIP
