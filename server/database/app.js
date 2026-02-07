@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/dealership_db', {
+mongoose.connect('mongodb://mongodb:27017/dealership_db', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

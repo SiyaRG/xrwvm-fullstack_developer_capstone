@@ -33,6 +33,12 @@ spec:
         ports:
         - containerPort: 3030
           protocol: TCP
+      - image: mongo:latest
+        imagePullPolicy: Always
+        name: mongodb
+        ports:
+        - containerPort: 27017
+          protocol: TCP
       restartPolicy: Always
 ---
 apiVersion: v1
