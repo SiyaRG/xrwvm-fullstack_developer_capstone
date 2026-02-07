@@ -130,3 +130,21 @@ def get_dealers(request, state=""):
         return JsonResponse({"status": 200, "dealers": dealers})
     else:
         return JsonResponse({"status": 500, "message": "Error fetching dealers"})
+
+# Create a `get_dealer` view to handle individual dealer requests
+def get_dealer(request, dealer_id):
+    dealer = get_request("fetchDealer/" + str(dealer_id))
+    
+    if dealer:
+        return JsonResponse({"status": 200, "dealer": [dealer]})
+    else:
+        return JsonResponse({"status": 500, "message": "Error fetching dealer"})
+
+# Create a `get_dealer_reviews` view to handle dealer review requests
+def get_dealer_reviews(request, dealer_id):
+    reviews = get_request("fetchReviews/dealer/" + str(dealer_id))
+    
+    if reviews is not None:
+        return JsonResponse({"status": 200, "reviews": reviews})
+    else:
+        return JsonResponse({"status": 500, "message": "Error fetching reviews"})
