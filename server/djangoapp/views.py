@@ -116,3 +116,17 @@ def add_review(request):
             return JsonResponse({"status":401,"message":"Error in posting review"})
     else:
         return JsonResponse({"status":403,"message":"Unauthorized"})
+
+# Create a `get_dealers` view to handle dealer requests
+def get_dealers(request, state=""):
+    if state:
+        # Get dealers by state
+        dealers = get_request("fetchDealers/" + state)
+    else:
+        # Get all dealers
+        dealers = get_request("fetchDealers")
+    
+    if dealers:
+        return JsonResponse({"status": 200, "dealers": dealers})
+    else:
+        return JsonResponse({"status": 500, "message": "Error fetching dealers"})
