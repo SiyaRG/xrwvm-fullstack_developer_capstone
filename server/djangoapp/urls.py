@@ -32,7 +32,11 @@ urlpatterns = [
     ),
 
     # path for dealer details and reviews
-    path(route='dealer/<int:dealer_id>', view=views.get_dealer, name='get_dealer'),
+    path(
+        route='dealer/<int:dealer_id>',
+        view=views.get_dealer,
+        name='get_dealer'
+    ),
     path(
         route='reviews/dealer/<int:dealer_id>',
         view=views.get_dealer_reviews,

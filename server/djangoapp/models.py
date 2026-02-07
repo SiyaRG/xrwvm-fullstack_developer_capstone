@@ -16,7 +16,7 @@ class CarMake(models.Model):
     description = models.TextField()
     founded_date = models.DateField(null=True, blank=True)
     country = models.CharField(max_length=50, null=True, blank=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -34,7 +34,7 @@ class CarModel(models.Model):
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     dealer_id = models.IntegerField()
     name = models.CharField(max_length=100)
-    
+
     CAR_TYPES = [
         ('SEDAN', 'Sedan'),
         ('SUV', 'SUV'),
@@ -48,6 +48,6 @@ class CarModel(models.Model):
             MinValueValidator(2015)
         ]
     )
-    
+
     def __str__(self):
         return f"{self.car_make.name} {self.name}"
