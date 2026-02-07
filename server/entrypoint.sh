@@ -1,13 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-# Wait for database to be ready (if needed)
-# python manage.py wait_for_db
-
-# Run Django migrations
-python manage.py migrate
-
-# Collect static files
+# Make migrations and migrate the database.
+echo "Making migrations and migrating the database. "
+python manage.py makemigrations --noinput
+python manage.py migrate --noinput
 python manage.py collectstatic --noinput
-
-# Start the application
 exec "$@"
