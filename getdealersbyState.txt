@@ -1,0 +1,4 @@
+curl -X GET https://siyabongafik-3030.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai//fetchDealers/Kansas
+
+Output:
+[{"_id":"6987207cae1fb8dc5fbdaf17","id":8,"city":"Topeka","state":"Kansas","address":"288 Larry Place","zip":"66642","lat":"39.0429","long":"-95.7697","short_name":"Bytecard","full_name":"Bytecard Car Dealership","__v":0}]

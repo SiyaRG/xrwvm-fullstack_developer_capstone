@@ -1,0 +1,19 @@
+curl -X GET https://siyabongafik-3030.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai//fetchDealers
+
+Output:
+[
+  {
+    "_id": "6987207cae1fb8dc5fbdaef5",
+    "id": 1,
+    "city": "El Paso",
+    "state": "Texas",
+    "address": "3 Nova Court",
+    "zip": "88563",
+    "lat": "31.6948",
+    "long": "-106.3",
+    "short_name": "Holdlamis",
+    "full_name": "Holdlamis Car Dealership",
+    "__v": 0
+  },
+  ... (50 dealership records total)
+]
